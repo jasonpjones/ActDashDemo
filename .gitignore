@@ -1,3 +1,21 @@
+# Node modules
+node_modules
+
+# Nuget Directory
+.nuget
+
+# NuGet Packages Directory
+packages
+
+# Grunt
+.grunt
+/grunt.cmd
+
+# Grunt generated files
+dist/js/ActDashDemo.min.js
+dist/**/*.js
+dist/**/*.css
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
