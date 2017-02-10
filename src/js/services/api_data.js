@@ -1,10 +1,10 @@
 ﻿/* globals $, ActDash */
 //required jQuery
 
-ActDash.APIData = function() {
+ActDash.APIData = function () {
     this.urlBase = "http://localhost/act.web.api/api/";
     this.access_token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdnIiOiIobG9jYWwpIiwiZGIiOiJ2MTkiLCJ1biI6Impqb25lcyIsImlkIjoiMWNkYzA5OWYtNTcyMC00YjA2LTk3NTgtMzMzYmE0NjZiYjc0IiwiaWF0IjoiMjAxNy0wMi0wMVQyMTowNDozMi4yNDE4NDI0WiJ9.OxkAUdNgnlmtPCoMYSCZlzCVydzNvCsWRMIlidiYAQY";
-}
+};
 
 ActDash.APIData.prototype = {
 

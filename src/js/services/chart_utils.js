@@ -1,8 +1,8 @@
 ﻿/* globals _, ActDash */
 //requires lodash
 
-ActDash.ChartUtils = function() {
-}
+ActDash.ChartUtils = function () {
+};
 
 ActDash.ChartUtils.prototype = {
     countByProperty: function(items, property) {

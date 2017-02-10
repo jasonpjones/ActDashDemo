@@ -6,21 +6,21 @@ if(typeof ActDash === 'undefined') {
 }
 
 ActDash.DashboardApp = function () {
+    //TODO: verify these are all needed
     this.dashboard = new ActDash.Dashboard();
     this.charts = new ActDash.Charts();
-    this.chartUtils = new ActDash.ChartUtils;
+    this.chartUtils = new ActDash.ChartUtils();
     this.apiData = new ActDash.APIData();
     this.addChartDialog = null;
-
-    this._init();
 };
 
 ActDash.DashboardApp.prototype = {
-    _init: function () {
+    initialize: function () {
+        this.dashboard.initialize();
         this._initDialogs();
         this._setupEventBinding();
     },
-    _initDialogs: function() {
+    _initDialogs: function () {
         this.addChartDialog = $("#dialog-form").dialog({
             autoOpen: false,
             height: "600 important!",
@@ -44,14 +44,6 @@ ActDash.DashboardApp.prototype = {
             this.dashboard.addNew();
         }.bind(this));
     }
+};
 
 
-
-
-}
-
-
-var dashApp;
-$(function() {
-    dashApp = new ActDash.DashboardApp(); 
-});

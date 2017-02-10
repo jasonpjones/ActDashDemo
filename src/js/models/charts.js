@@ -7,4 +7,4 @@ ActDash.Charts = function () {
 ActDash.Charts.prototype = {
 
 
-}
+};

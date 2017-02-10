@@ -2,10 +2,10 @@
 
     describe('construction', function () {
         var dashApp;
+
         beforeEach(function () {
             dashApp = new ActDash.DashboardApp();
         });
-
 
         it("should instantiate a dashboard object", function () {
             expect(dashApp.dashboard).toBeDefined();
@@ -22,9 +22,6 @@
         it("should instantiate a API data object", function () {
             expect(dashApp.apiData).toBeDefined();
         });
-
-
-
 
     });
 
