@@ -2,7 +2,7 @@
     var chartUtils;
 
     beforeEach(function () {
-        chartUtils = new ChartUtils();
+        chartUtils = new ActDash.ChartUtils();
     });
 
     describe('countByProperty', function () {

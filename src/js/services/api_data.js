@@ -1,13 +1,14 @@
-﻿/* globals $ */
-function APIData(dashApp) {
-    this.dashApp = dashApp;
+﻿/* globals $, ActDash */
+//required jQuery
+
+ActDash.APIData = function() {
     this.urlBase = "http://localhost/act.web.api/api/";
     this.access_token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdnIiOiIobG9jYWwpIiwiZGIiOiJ2MTkiLCJ1biI6Impqb25lcyIsImlkIjoiMWNkYzA5OWYtNTcyMC00YjA2LTk3NTgtMzMzYmE0NjZiYjc0IiwiaWF0IjoiMjAxNy0wMi0wMVQyMTowNDozMi4yNDE4NDI0WiJ9.OxkAUdNgnlmtPCoMYSCZlzCVydzNvCsWRMIlidiYAQY";
 }
 
-APIData.prototype = {
+ActDash.APIData.prototype = {
 
-    _callApi: function (type, endpoint, cb_success, cb_fail) {
+    callApi: function (type, endpoint, cb_success, cb_fail) {
         var url = this.urlBase + endpoint;
         $.ajax({
             type: "GET",

@@ -1,0 +1,69 @@
+﻿
+button, h1
+{
+    margin-left: 15px;
+}
+
+.grid-container
+{
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+.cell-number
+{
+    margin: 10px auto;
+    /*margin: 23% 44%; */
+    opacity: 0.6;
+    z-index: 100;
+}
+
+.number-circle {
+    /*  http://stackoverflow.com/questions/4861224/how-to-use-css-to-surround-a-number-with-a-circle */
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    padding: 4px;
+    background: #fff;
+    border: 2px solid orange;
+    color: orange;
+    text-align: center;
+    font: 32px Arial, sans-serif;
+}
+
+#dialog-form
+{
+    min-height: 180px !important;   /* Getting overridden somehow by jqui*/
+}
+
+#dialog-form > ul
+{
+    list-style:none;
+}
+
+#dialog-form > ul > li > div
+{
+    display:inline-block;
+    margin-bottom: 10px;
+    width: 90px;
+}
+
+.hover-vis
+{
+    display: none;
+}
+
+
+.delete-can
+{
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.delete-can > img
+{
+    max-height: 100%;
+    max-width: 100%;
+}
+

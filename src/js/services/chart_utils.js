@@ -1,11 +1,10 @@
-﻿/* globals _ */
+﻿/* globals _, ActDash */
 //requires lodash
 
-function ChartUtils(dashApp) {
-    this.dashApp = dashApp;
+ActDash.ChartUtils = function() {
 }
 
-ChartUtils.prototype = {
+ActDash.ChartUtils.prototype = {
     countByProperty: function(items, property) {
         
         if (!Array.isArray(items)) {
