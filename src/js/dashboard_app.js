@@ -1,4 +1,4 @@
-﻿/* globals $, ChartUtils, APIData, Plotly, ActDash:true */
+﻿/* globals $, _, Plotly, ActDash:true */
 
 
 if(typeof ActDash === 'undefined') {
@@ -36,11 +36,17 @@ ActDash.DashboardApp.prototype = {
             }
         });
     },
+    _showAddChartDialog: function () {
+        $("#cell-number-select option").remove();
+        var indices = this.dashboard.getCellIndices();
+        _.forEach(indices, function (idx) {
+            $("#cell-number-select").append($('<option></option>').attr('value', idx).text(idx));
+        });
+        this.addChartDialog.dialog("open");
+    },
     _setupEventBinding: function () {
-        $("#btn-add-chart").button().on("click", function () {
-            this.addChartDialog.dialog("open");
-        }.bind(this));
-        $("#btn-add-cell").button().on("click", function () {
+        $("#btn-add-chart").button().click(this._showAddChartDialog.bind(this));
+        $("#btn-add-cell").button().click(function () {
             this.dashboard.addNew();
         }.bind(this));
     }

@@ -30,5 +30,8 @@ ActDash.DashUtils.prototype = {
             nextY = bot > nextY ? bot : nextY;
         });
         return nextY;
+    },
+    getIndices: function (arr) {
+        return _.sortBy(_.map(arr, 'nbrIdx'));
     }
 };
