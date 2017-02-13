@@ -17,10 +17,11 @@ ActDash.Dashboard.prototype = {
         var gridContentDiv = '<div><div class="grid-stack-item-content" data-nbr-idx="' + nbrIdx + '">';   //Needs an end tag
         var deleteDiv = '<div class="hover-vis delete-can"><img src="images/trash_can-512.png" title="Delete"></div>';
         var nbrDiv = '<div class="hover-vis cell-number number-circle">' + nbrIdx + '</div>';
+        var chartDiv = '<div id="chart-div-' + nbrIdx + '" class="chart-div"></div>';
         var divEndTag = '</div></div>';
         //TODO: construct like var $div = $("<div>", {id: "foo", "class": "a"}); and append them together.
         var nextY = this.dashUtils.findNextXCoordinate(this.cells);
-        var el = this.grid.addWidget($(gridContentDiv + deleteDiv + nbrDiv + divEndTag), 0, nextY, 2, 2);
+        var el = this.grid.addWidget($(gridContentDiv + chartDiv + deleteDiv + nbrDiv + divEndTag), 0, nextY, 2, 2);
     },
     serialize: function () {
         var _dash = this;

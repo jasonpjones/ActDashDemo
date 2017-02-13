@@ -33,7 +33,7 @@ button, h1
 
 #dialog-form
 {
-    min-height: 180px !important;   /* Getting overridden somehow by jqui*/
+    min-height: 220px !important;   /* Getting overridden somehow by jqui*/
 }
 
 #dialog-form > ul

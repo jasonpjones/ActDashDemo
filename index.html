@@ -40,14 +40,25 @@
         <div id="dialog-form">
             <ul>
                 <li>
+                    <div>Title:</div>
+                    <input type="text" id="chart-title" value="Sample chart" />
+                </li>
+                <li>
+                    <div style="width:94px">Height (px)</div><input type="text" id="chart-height" value="400"/><!-- Not sure why I am having to manually size these -->
+                </li>
+                <li>
+                    <div style="width:94px">Width (px)</div><input type="text" id="chart-width" value="500" />
+                </li>
+                <li>
                     <div>Cell number:</div>
                     <select id="cell-number-select"></select>
                 </li>
                 <li>
                     <div>Chart type:</div>
                     <select id="chart-type-select">
-                        <option value="pie">Pie Chart</option>
                         <option value="bar">Bar Chart</option>
+                        <option value="pie">Pie Chart</option>
+                        <option value="donut">Donut Chart</option>
                     </select>
                 </li>
                 <li>
@@ -55,12 +66,6 @@
                     <select id="chart-data-select">
                         <option value="activities-by-type">Activities by Type</option>
                     </select>
-                </li>
-                <li>
-                    <div>Height (px)</div><input type="text" id="chart-height" />
-                </li>
-                <li>
-                    <div>Width (px)</div><input type="text" id="chart-width" />
                 </li>
 
             </ul>

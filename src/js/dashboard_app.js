@@ -1,4 +1,4 @@
-﻿/* globals $, _, Plotly, ActDash:true */
+﻿/* globals $, _, ActDash:true */
 
 
 if(typeof ActDash === 'undefined') {
@@ -9,8 +9,6 @@ ActDash.DashboardApp = function () {
     //TODO: verify these are all needed
     this.dashboard = new ActDash.Dashboard();
     this.charts = new ActDash.Charts();
-    this.chartUtils = new ActDash.ChartUtils();
-    this.apiData = new ActDash.APIData();
     this.addChartDialog = null;
 };
 
@@ -21,14 +19,22 @@ ActDash.DashboardApp.prototype = {
         this._setupEventBinding();
     },
     _initDialogs: function () {
+        var _charts = this.charts;
         this.addChartDialog = $("#dialog-form").dialog({
             autoOpen: false,
-            height: "600 important!",
-            width: 350,
             modal: true,
+            width: 'auto',
             buttons: {
                 "Add Chart": function () {
-                    alert("adding");
+                    _charts.addChart(
+                        $('#chart-title').val(),
+                        $('#cell-number-select').val(),
+                        $('#chart-type-select').val(),
+                        $('#chart-data-select').val(),
+                        $('#chart-height').val(),
+                        $('#chart-width').val()
+                        );
+                    $(this).dialog("close");
                 },
                 Cancel: function () {
                     $(this).dialog("close");
