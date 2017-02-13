@@ -50,7 +50,7 @@ ActDash.Dashboard.prototype = {
         }.bind(this));
 
         $(document).on("click", ".delete-can", function (e) {
-            var el = $(e.target).parent().parent()[0];
+            var el = $(e.target).closest('.grid-stack-item');
             this.grid.removeWidget(el, true);
         }.bind(this));
     }
