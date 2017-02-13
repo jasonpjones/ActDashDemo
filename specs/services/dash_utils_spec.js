@@ -104,4 +104,37 @@ describe('dash_utils', function () {
 
     });
 
+    describe('getIndices', function () {
+
+        it('should return an empty array if it is passed an empty array', function () {
+            var arr = [],
+                result = dashUtils.getIndices(arr);
+            expect(result).toEqual([]);
+        });
+
+
+        it('should return an array of all nbrIdx properties on the passed in array of objects', function () {
+            var arr = [
+                { nbrIdx: 1 },
+                { nbrIdx: 2 },
+                { nbrIdx: 3 }
+            ],
+            result = dashUtils.getIndices(arr);
+            expect(result).toEqual([1,2,3]);
+        });
+
+        it('should return an array of all nbrIdx properties on the passed in array of objects sorted ascending', function () {
+            var arr = [
+                { nbrIdx: 5 },
+                { nbrIdx: 3 },
+                { nbrIdx: 4 },
+                { nbrIdx: 1 },
+                { nbrIdx: 7 }
+            ],
+            result = dashUtils.getIndices(arr);
+            expect(result).toEqual([1, 3, 4, 5, 7]);
+        });
+
+    });
+
 });

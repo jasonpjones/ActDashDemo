@@ -22,12 +22,22 @@ ActDash.Dashboard.prototype = {
         var nextY = this.dashUtils.findNextXCoordinate(this.cells);
         var el = this.grid.addWidget($(gridContentDiv + deleteDiv + nbrDiv + divEndTag), 0, nextY, 2, 2);
     },
-    serialize: function (dashboardItems) {
-        this.cells = [];    //TODO - localstorage
-        _.forEach(dashboardItems, function (item) {
-            var idx = item.el.find(".grid-stack-item-content").data('nbrIdx');
-            this.cells.push({ nbrIdx: idx, el: item.el, x: item.x, y: item.y, height: item.height, width: item.width });
-        }.bind(this));
+    serialize: function () {
+        var _dash = this;
+        this.cells = [];
+        $('.grid-stack-item').each(function () {
+            var $this = $(this),
+                nbrIdx = $this.find(".grid-stack-item-content").data('nbrIdx'),
+                height = $this.data('gsHeight'),
+                width = $this.data('gsWidth'),
+                x = $this.data('gsX'),
+                y = $this.data('gsY');
+            _dash.cells.push({ nbrIdx: nbrIdx, el: this, x: x, y: y, height: height, width: width });
+        });
+
+    },
+    getCellIndices: function() {
+        return this.dashUtils.getIndices(this.cells);
     },
     _initGrid: function () {
         var options = {
@@ -45,8 +55,8 @@ ActDash.Dashboard.prototype = {
             $(this).find(".hover-vis").hide();
         });
 
-        $('.grid-stack').on('change', function (event, items) {
-            this.serialize(items);
+        $('.grid-stack').on('change', function (event, items) {//items is not reliable - gridstack defect.
+            this.serialize();   
         }.bind(this));
 
         $(document).on("click", ".delete-can", function (e) {

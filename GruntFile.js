@@ -19,7 +19,8 @@ module.exports = function (grunt) {
                 'eqeqeq': true,
                 'curly': true,
                 'devel': true,
-                'undef': true,
+                'undef': true
+                //'todo' : true
                 //"unused" : true
             },
 
