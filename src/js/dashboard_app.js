@@ -24,7 +24,7 @@ ActDash.DashboardApp.prototype = {
         this.addChartDialog = $("#dialog-form").dialog({
             autoOpen: false,
             height: "600 important!",
-            width: 300,
+            width: 350,
             modal: true,
             buttons: {
                 "Add Chart": function () {
