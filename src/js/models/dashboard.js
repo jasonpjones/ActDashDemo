@@ -13,15 +13,19 @@ ActDash.Dashboard.prototype = {
         this._setupEventBinding();
     },
     addNew: function () {
-        var nbrIdx = this.dashUtils.findNextAvailableIndex(this.cells);
-        var gridContentDiv = '<div><div class="grid-stack-item-content" data-nbr-idx="' + nbrIdx + '">';   //Needs an end tag
-        var deleteDiv = '<div class="hover-vis delete-can"><img src="images/trash_can-512.png" title="Delete"></div>';
-        var nbrDiv = '<div class="hover-vis cell-number number-circle">' + nbrIdx + '</div>';
-        var chartDiv = '<div id="chart-div-' + nbrIdx + '" class="chart-div"></div>';
-        var divEndTag = '</div></div>';
-        //TODO: construct like var $div = $("<div>", {id: "foo", "class": "a"}); and append them together.
-        var nextY = this.dashUtils.findNextXCoordinate(this.cells);
-        var el = this.grid.addWidget($(gridContentDiv + chartDiv + deleteDiv + nbrDiv + divEndTag), 0, nextY, 2, 2);
+        var nbrIdx = this.dashUtils.findNextAvailableIndex(this.cells),
+            chartDivId = "chart-div-" + nbrIdx,
+            deleteImgUrl = "images/trash_can-512.png",
+            nextY = this.dashUtils.findNextXCoordinate(this.cells);
+
+        // Generate the HTML for the widget. Only the first and last grid are required for gridstack. The rest is custom delete div, chart-index and placeholder for a plotly chart.
+        var dashHtml = ($("<div>", { class: "grid-stack-item-content", 'data-nbr-idx': nbrIdx }));
+        dashHtml.append($("<div>", { class: "hover-vis delete-can", }).append($("<img>", { src: deleteImgUrl, title: "Delete" })));
+        dashHtml.append($("<div>", { class: "hover-vis cell-number number-circle" }).html(nbrIdx));
+        dashHtml.append($("<div>", { id: chartDivId, class: "chart-div" }));
+        dashHtml = $("<div>").append(dashHtml); //Wrap the whole thing in a div
+
+        this.grid.addWidget(dashHtml, 0, nextY, 2, 2);
     },
     serialize: function () {
         var _dash = this;
@@ -50,9 +54,9 @@ ActDash.Dashboard.prototype = {
     },
     _setupEventBinding: function () {
 
-        $(document).on("mouseenter", ".grid-stack-item-content", function () {
+        $(document).on("mouseenter", ".grid-stack-item", function () {
             $(this).find(".hover-vis").show();
-        }).on("mouseleave", ".grid-stack-item-content", function () {
+        }).on("mouseleave", ".grid-stack-item", function () {
             $(this).find(".hover-vis").hide();
         });
 

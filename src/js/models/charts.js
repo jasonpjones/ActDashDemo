@@ -14,7 +14,7 @@ ActDash.Charts.prototype = {
             height: height,
             width: width
         };
-        var api_call = ""
+        var api_call = "";
         var successFunction;
         switch (chartId) {
             case "activities-by-type":
@@ -31,7 +31,7 @@ ActDash.Charts.prototype = {
                         break;
                 }
                 break;
-        };
+        }
 
         this.apiData.callApi(
             "GET",
@@ -42,22 +42,22 @@ ActDash.Charts.prototype = {
     },
     _insertActivityByTypeBarChart: function (data) {
         var collated = this.chartUtils.countByProperty(data, "activityTypeName"),
-            values = collated.map(function (o) { return o.count }),
-            labels = collated.map(function (o) { return o.value }),
+            values = collated.map(function (o) { return o.count; }),
+            labels = collated.map(function (o) { return o.value; }),
             chart = new ActDash.BarChart(this.chartInfo.title, values, labels, this.chartInfo.target, this.chartInfo.height, this.chartInfo.width);
         chart.draw();
     },
     _insertActivityByTypePieChart: function (data) {
         var collated = this.chartUtils.countByProperty(data, "activityTypeName"),
-            values = collated.map(function (o) { return o.count }),
-            labels = collated.map(function (o) { return o.value }),
+            values = collated.map(function (o) { return o.count; }),
+            labels = collated.map(function (o) { return o.value; }),
             chart = new ActDash.PieChart(this.chartInfo.title, values, labels, this.chartInfo.target, this.chartInfo.height, this.chartInfo.width);
         chart.draw();
     },
     _insertActivityByTypeDonutChart: function(data) {
         var collated = this.chartUtils.countByProperty(data, "activityTypeName"),
-            values = collated.map(function (o) { return o.count }),
-            labels = collated.map(function (o) { return o.value }),
+            values = collated.map(function (o) { return o.count; }),
+            labels = collated.map(function (o) { return o.value; }),
             chart = new ActDash.DonutChart(this.chartInfo.title, values, labels, this.chartInfo.target, this.chartInfo.height, this.chartInfo.width, 0.5);
         chart.draw();
     },
