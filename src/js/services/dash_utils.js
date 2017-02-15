@@ -22,16 +22,19 @@ ActDash.DashUtils.prototype = {
         }
         return nextIdx;
     },
-    findNextXCoordinate: function (arr) {
+    findNextYCoordinate: function (arr) {
         var nextY = 0,
             bot;
         _.forEach(arr, function (item) {
-            bot = item.y + item.height;
+            bot = item.y + item.gsHeight;
             nextY = bot > nextY ? bot : nextY;
         });
         return nextY;
     },
-    getIndices: function (arr) {
-        return _.sortBy(_.map(arr, 'nbrIdx'));
+    getIndicesAndSizes: function (arr) {
+        return _.sortBy(_.map(arr, function (i) {
+            return { nbrIdx: i.nbrIdx, size: { h: i.pxHeight, w: i.pxWidth } };
+        }), 'nbrIdx');
+
     }
 };

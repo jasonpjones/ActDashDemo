@@ -6,13 +6,13 @@ ActDash.Charts = function () {
 };
 
 ActDash.Charts.prototype = {
-    addChart: function (title, cellIdx, chartType, chartId, height, width) {
+    addChart: function (title, cellIdx, chartType, chartId, gsHeight, gsWidth) {
         this.chartInfo = {
             target: 'chart-div-' + cellIdx,
             title: title,
             cellIdx: cellIdx,
-            height: height,
-            width: width
+            height: gsHeight,
+            width: gsWidth
         };
         var api_call = "";
         var successFunction;

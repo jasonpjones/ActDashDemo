@@ -23,6 +23,7 @@
         <script src="src/js/dashboard_app.js"></script>
         <script src="src/js/models/charts.js"></script>
         <script src="src/js/models/dashboard.js"></script>
+        <script src="src/js/models/dashboard_cell.js"></script>
         <script src="src/js/services/chart_utils.js"></script>
         <script src="src/js/services/dash_utils.js"></script>
         <script src="src/js/services/api_data.js"></script>
@@ -32,7 +33,7 @@
         <h1>Sample customizable dashboard</h1>
         <div>
             <button id="btn-add-cell">Add a Cell</button>
-            <button id="btn-add-chart">Add a Chart</button>
+            <button id="btn-add-chart" disabled="disabled">Add a Chart</button>
         </div>
         <div class="grid-container">
             <div class="grid-stack"></div>
@@ -51,11 +52,11 @@
                 </li>
                 <li>
                     <div>Cell number:</div>
-                    <select id="cell-number-select"></select>
+                    <select id="cell-number-select" style="width:173px"></select>
                 </li>
                 <li>
                     <div>Chart type:</div>
-                    <select id="chart-type-select">
+                    <select id="chart-type-select"  style="width:173px">
                         <option value="bar">Bar Chart</option>
                         <option value="pie">Pie Chart</option>
                         <option value="donut">Donut Chart</option>
@@ -63,7 +64,7 @@
                 </li>
                 <li>
                     <div>Chart data:</div>
-                    <select id="chart-data-select">
+                    <select id="chart-data-select"  style="width:173px">
                         <option value="activities-by-type">Activities by Type</option>
                     </select>
                 </li>

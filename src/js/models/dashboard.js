@@ -6,7 +6,6 @@ ActDash.Dashboard = function () {
     this.cells = [];
 };
 
-
 ActDash.Dashboard.prototype = {
     initialize: function () {
         this._initGrid();
@@ -16,9 +15,9 @@ ActDash.Dashboard.prototype = {
         var nbrIdx = this.dashUtils.findNextAvailableIndex(this.cells),
             chartDivId = "chart-div-" + nbrIdx,
             deleteImgUrl = "images/trash_can-512.png",
-            nextY = this.dashUtils.findNextXCoordinate(this.cells);
+            nextY = this.dashUtils.findNextYCoordinate(this.cells);
 
-        // Generate the HTML for the widget. Only the first and last grid are required for gridstack. The rest is custom delete div, chart-index and placeholder for a plotly chart.
+        // Generate the HTML for the widget. Only the first and last div are required for gridstack. The rest is custom a delete div, chart-index (numbered circle) and placeholder for a plotly chart.
         var dashHtml = ($("<div>", { class: "grid-stack-item-content", 'data-nbr-idx': nbrIdx }));
         dashHtml.append($("<div>", { class: "hover-vis delete-can", }).append($("<img>", { src: deleteImgUrl, title: "Delete" })));
         dashHtml.append($("<div>", { class: "hover-vis cell-number number-circle" }).html(nbrIdx));
@@ -27,22 +26,16 @@ ActDash.Dashboard.prototype = {
 
         this.grid.addWidget(dashHtml, 0, nextY, 2, 2);
     },
-    serialize: function () {
+    saveCells: function () {
         var _dash = this;
         this.cells = [];
         $('.grid-stack-item').each(function () {
-            var $this = $(this),
-                nbrIdx = $this.find(".grid-stack-item-content").data('nbrIdx'),
-                height = $this.data('gsHeight'),
-                width = $this.data('gsWidth'),
-                x = $this.data('gsX'),
-                y = $this.data('gsY');
-            _dash.cells.push({ nbrIdx: nbrIdx, el: this, x: x, y: y, height: height, width: width });
+            _dash.cells.push(new ActDash.DashboardCell($(this)));
         });
-
+        $('#btn-add-chart').button('option', 'disabled', this.cells.length === 0);
     },
-    getCellIndices: function() {
-        return this.dashUtils.getIndices(this.cells);
+    getIndicesAndSizes: function () {
+        return this.dashUtils.getIndicesAndSizes(this.cells);
     },
     _initGrid: function () {
         var options = {
@@ -61,7 +54,7 @@ ActDash.Dashboard.prototype = {
         });
 
         $('.grid-stack').on('change', function (event, items) {//items is not reliable - gridstack defect.
-            this.serialize();   
+            this.saveCells();   
         }.bind(this));
 
         $(document).on("click", ".delete-can", function (e) {

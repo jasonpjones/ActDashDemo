@@ -6,7 +6,6 @@ if(typeof ActDash === 'undefined') {
 }
 
 ActDash.DashboardApp = function () {
-    //TODO: verify these are all needed
     this.dashboard = new ActDash.Dashboard();
     this.charts = new ActDash.Charts();
     this.addChartDialog = null;
@@ -43,12 +42,37 @@ ActDash.DashboardApp.prototype = {
         });
     },
     _showAddChartDialog: function () {
-        $("#cell-number-select option").remove();
-        var indices = this.dashboard.getCellIndices();
-        _.forEach(indices, function (idx) {
-            $("#cell-number-select").append($('<option></option>').attr('value', idx).text(idx));
+        var $sel = $("#cell-number-select"),
+            lastVal = $sel.val();
+        
+        $sel.off('change');
+
+        $sel.children().remove();
+
+        var indicesAndSizes = this.dashboard.getIndicesAndSizes();
+        _.forEach(indicesAndSizes, function (o) {
+            $sel.append($('<option></option>').attr('value', o.nbrIdx).text(o.nbrIdx));
         });
+
+        $sel.on('change', function () {
+            var val = parseInt($(this).val()),  //dangerous?
+                idxAndSize = _.find(indicesAndSizes, function (o) { return o.nbrIdx === val; });
+            $('#chart-height').val(idxAndSize.size.h);
+            $('#chart-width').val(idxAndSize.size.w);
+        });
+
+        var selArrItem = _.find(indicesAndSizes, function (o) { return o.nbrIdx === lastVal; }) || indicesAndSizes[0];
+        $sel.val(selArrItem.nbrIdx);
+        $sel.trigger('change'); //start with the right values
+
+
         this.addChartDialog.dialog("open");
+
+
+        //TODO: Keep the selected index if it is still available
+        // Create an array of objects that tracks the indexes and the suggested height and width
+
+
     },
     _setupEventBinding: function () {
         $("#btn-add-chart").button().click(this._showAddChartDialog.bind(this));
