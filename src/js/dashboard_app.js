@@ -57,8 +57,8 @@ ActDash.DashboardApp.prototype = {
         $sel.on('change', function () {
             var val = parseInt($(this).val()),  //dangerous?
                 idxAndSize = _.find(indicesAndSizes, function (o) { return o.nbrIdx === val; });
-            $('#chart-height').val(idxAndSize.size.h);
-            $('#chart-width').val(idxAndSize.size.w);
+            $('#chart-height').val(idxAndSize.size.h - 10);
+            $('#chart-width').val(idxAndSize.size.w - 20);
         });
 
         var selArrItem = _.find(indicesAndSizes, function (o) { return o.nbrIdx === lastVal; }) || indicesAndSizes[0];

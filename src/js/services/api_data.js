@@ -3,7 +3,7 @@
 
 ActDash.APIData = function () {
     this.urlBase = "http://localhost/act.web.api/api/";
-    this.access_token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdnIiOiIobG9jYWwpIiwiZGIiOiJ2MTkiLCJ1biI6Impqb25lcyIsImlkIjoiMWNkYzA5OWYtNTcyMC00YjA2LTk3NTgtMzMzYmE0NjZiYjc0IiwiaWF0IjoiMjAxNy0wMi0xNFQyMzozNTo1OS4xMTM0OTY3WiJ9.QHDV3By8BkmnkH83Smp4fEscUyzZuz2qXsSsSxHz2FE";
+    this.access_token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdnIiOiIobG9jYWwpIiwiZGIiOiJ2MTkiLCJ1biI6Impqb25lcyIsImlkIjoiMWNkYzA5OWYtNTcyMC00YjA2LTk3NTgtMzMzYmE0NjZiYjc0IiwiaWF0IjoiMjAxNy0wMi0xNVQyMjozNDo1NC4yNzc5MzQ0WiJ9.Yo_YWZerRvVe3Pk8MCZHKyqqmqcq135QQ6JHL1itnRk";
 };
 
 ActDash.APIData.prototype = {
