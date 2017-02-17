@@ -4,6 +4,17 @@ button, h1
     margin-left: 15px;
 }
 
+#btn-div
+{
+    display: inline-block;
+}
+
+#btn-add-cell, #btn-add-chart, #btn-save
+{
+    margin-top: -4px;
+}
+
+
 .grid-container
 {
     margin-left: 5px;

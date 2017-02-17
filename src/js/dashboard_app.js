@@ -68,7 +68,21 @@ ActDash.DashboardApp.prototype = {
         this.addChartDialog.dialog("open");
 
     },
+    _toggleEdit: function (e) {
+        var checked = $(e.target).prop('checked');
+        if (checked) {
+            $('#btn-div').show();
+            this.dashboard.enableEditing();
+        }
+        else {
+            $('#btn-div').hide();
+            this.dashboard.disableEditing();
+        }
+    },
     _setupEventBinding: function () {
+        $('#cb-enable-editing').checkboxradio().click(function (e) {
+            this._toggleEdit(e);
+        }.bind(this));
         $("#btn-add-chart").button().click(this._showAddChartDialog.bind(this));
         $("#btn-add-cell").button().click(function () {
             this.dashboard.addNewCell();

@@ -12,6 +12,15 @@ ActDash.Dashboard.prototype = {
         this._initGrid();
         this.deserialize();
         this._setupEventBinding();
+        this.disableEditing();
+    },
+    enableEditing: function () {
+        this.grid.enable();
+        this.turnOnCustomHover();
+    },
+    disableEditing: function () {
+        this.grid.disable();
+        this.turnOffCustomHover();
     },
     addNewCell: function () {
         var nbrIdx = this.dashUtils.findNextAvailableIndex(this.cells),
@@ -21,6 +30,16 @@ ActDash.Dashboard.prototype = {
     addChart: function (title, cellIdx, chartType, chartId, pxHeight, pxWidth) {
         this.charts.addChart(title, cellIdx, chartType, chartId, pxHeight, pxWidth);
         $('#btn-save').button('option', 'disabled', false);
+    },
+    turnOnCustomHover: function () {
+        $(document).on("mouseenter", ".grid-stack-item", function () {
+            $(this).find(".hover-vis").show();
+        }).on("mouseleave", ".grid-stack-item", function () {
+            $(this).find(".hover-vis").hide();
+        });
+    },
+    turnOffCustomHover: function () {
+        $(document).off("mouseenter", ".grid-stack-item");
     },
     saveCells: function () {
         var _dash = this;
@@ -76,11 +95,7 @@ ActDash.Dashboard.prototype = {
     },
     _setupEventBinding: function () {
 
-        $(document).on("mouseenter", ".grid-stack-item", function () {
-            $(this).find(".hover-vis").show();
-        }).on("mouseleave", ".grid-stack-item", function () {
-            $(this).find(".hover-vis").hide();
-        });
+        this.turnOnCustomHover();
 
         $('.grid-stack').on('change', function (event, items) {//items is not reliable - gridstack defect.
             this.saveCells();
