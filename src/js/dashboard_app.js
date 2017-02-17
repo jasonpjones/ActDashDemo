@@ -7,25 +7,24 @@ if(typeof ActDash === 'undefined') {
 
 ActDash.DashboardApp = function () {
     this.dashboard = new ActDash.Dashboard();
-    this.charts = new ActDash.Charts();
     this.addChartDialog = null;
 };
 
 ActDash.DashboardApp.prototype = {
     initialize: function () {
-        this.dashboard.initialize();
         this._initDialogs();
-        this._setupEventBinding();
+        this._setupEventBinding();  //has to happen before dashboard initialize because it expects the buttons to have been made jqui buttons.
+        this.dashboard.initialize();
     },
     _initDialogs: function () {
-        var _charts = this.charts;
+        var _dashboard = this.dashboard;
         this.addChartDialog = $("#dialog-form").dialog({
             autoOpen: false,
             modal: true,
             width: 'auto',
             buttons: {
                 "Add Chart": function () {
-                    _charts.addChart(
+                    _dashboard.addChart(
                         $('#chart-title').val(),
                         $('#cell-number-select').val(),
                         $('#chart-type-select').val(),
@@ -33,6 +32,7 @@ ActDash.DashboardApp.prototype = {
                         $('#chart-height').val(),
                         $('#chart-width').val()
                         );
+                    _dashboard.saveCells();
                     $(this).dialog("close");
                 },
                 Cancel: function () {
@@ -65,19 +65,16 @@ ActDash.DashboardApp.prototype = {
         $sel.val(selArrItem.nbrIdx);
         $sel.trigger('change'); //start with the right values
 
-
         this.addChartDialog.dialog("open");
-
-
-        //TODO: Keep the selected index if it is still available
-        // Create an array of objects that tracks the indexes and the suggested height and width
-
 
     },
     _setupEventBinding: function () {
         $("#btn-add-chart").button().click(this._showAddChartDialog.bind(this));
         $("#btn-add-cell").button().click(function () {
-            this.dashboard.addNew();
+            this.dashboard.addNewCell();
+        }.bind(this));
+        $("#btn-save").button().click(function () {
+            this.dashboard.serialize();
         }.bind(this));
     }
 };

@@ -1,30 +1,26 @@
-﻿/* globals ActDash, $, _, document*/
+﻿/* globals ActDash, $, _, document, localStorage */
 
 ActDash.Dashboard = function () {
     this.dashUtils = new ActDash.DashUtils();
     this.grid = null;
     this.cells = [];
+    this.charts = new ActDash.Charts();
 };
 
 ActDash.Dashboard.prototype = {
     initialize: function () {
         this._initGrid();
+        this.deserialize();
         this._setupEventBinding();
     },
-    addNew: function () {
+    addNewCell: function () {
         var nbrIdx = this.dashUtils.findNextAvailableIndex(this.cells),
-            chartDivId = "chart-div-" + nbrIdx,
-            deleteImgUrl = "images/trash_can-512.png",
             nextY = this.dashUtils.findNextYCoordinate(this.cells);
-
-        // Generate the HTML for the widget. Only the first and last div are required for gridstack. The rest is custom a delete div, chart-index (numbered circle) and placeholder for a plotly chart.
-        var dashHtml = ($("<div>", { class: "grid-stack-item-content", 'data-nbr-idx': nbrIdx }));
-        dashHtml.append($("<div>", { class: "hover-vis delete-can", }).append($("<img>", { src: deleteImgUrl, title: "Delete" })));
-        dashHtml.append($("<div>", { class: "hover-vis cell-number number-circle" }).html(nbrIdx));
-        dashHtml.append($("<div>", { id: chartDivId, class: "chart-div" }));
-        dashHtml = $("<div>").append(dashHtml); //Wrap the whole thing in a div
-
-        this.grid.addWidget(dashHtml, 0, nextY, 2, 2);
+        this._addCell(nbrIdx, 0, nextY, 2, 2);
+    },
+    addChart: function (title, cellIdx, chartType, chartId, pxHeight, pxWidth) {
+        this.charts.addChart(title, cellIdx, chartType, chartId, pxHeight, pxWidth);
+        $('#btn-save').button('option', 'disabled', false);
     },
     saveCells: function () {
         var _dash = this;
@@ -34,8 +30,41 @@ ActDash.Dashboard.prototype = {
         });
         $('#btn-add-chart').button('option', 'disabled', this.cells.length === 0);
     },
+    serialize: function () {
+        $('#btn-save').button('option', 'disabled', true);
+        var out = _.map(this.cells, function (cell) {
+            var obj = {
+                idx: cell.nbrIdx,
+                di: { x: cell.x, y: cell.y, h: cell.gsHeight, w: cell.gsWidth }
+            };
+            if (cell.chartInfo) {
+                obj.ci = { cid: cell.chartInfo.id, ttl: cell.chartInfo.title, type: cell.chartInfo.type, w: cell.chartInfo.width, h: cell.chartInfo.height };
+            }
+            return obj;
+        });
+        localStorage.setItem("actdashdemo_data", JSON.stringify(out));
+    },
+    deserialize: function () {
+        var dashData = localStorage.getItem("actdashdemo_data");
+        if (!dashData) {
+            return;
+        }
+        var _cells = JSON.parse(dashData);
+        _.forEach(_cells, function (c) {
+            this._addCell(c.idx, c.di.x, c.di.y, c.di.w, c.di.h);
+            if (c.ci) {
+                this.addChart(c.ci.ttl, c.idx, c.ci.type, c.ci.cid, c.ci.h, c.ci.w, false);
+            }
+        }.bind(this));
+
+        this.saveCells();
+    },
     getIndicesAndSizes: function () {
         return this.dashUtils.getIndicesAndSizes(this.cells);
+    },
+    _addCell: function (idx, x, y, height, width) {
+        var dashHtml = this.dashUtils.createCellElement(idx);
+        this.grid.addWidget(dashHtml, x, y, height, width);
     },
     _initGrid: function () {
         var options = {
@@ -54,7 +83,8 @@ ActDash.Dashboard.prototype = {
         });
 
         $('.grid-stack').on('change', function (event, items) {//items is not reliable - gridstack defect.
-            this.saveCells();   
+            this.saveCells();
+            $('#btn-save').button('option', 'disabled', false);
         }.bind(this));
 
         $(document).on("click", ".delete-can", function (e) {
