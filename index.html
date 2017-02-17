@@ -5,12 +5,13 @@
         <!-- library css -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.2.6/gridstack.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     
         <!-- library scripts -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.0/jquery-ui.js"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.0/jquery-ui.js"></script>-->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.2.6/gridstack.min.js"></script>
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -31,7 +32,10 @@
     </head>
     <body>
         <h1>Sample customizable dashboard</h1>
-        <div>
+        <div style="margin: 15px; display:inline-block">
+            <label for="cb-enable-editing">Enable editing</label><input type="checkbox" name="cb-enable-editing" id="cb-enable-editing" />
+        </div>
+        <div id="btn-div" style="display:none">
             <button id="btn-add-cell">Add a Cell</button>
             <button id="btn-add-chart" disabled="disabled">Add a Chart</button>
             <button id="btn-save" disabled="disabled">Save</button>
@@ -39,7 +43,7 @@
         <div class="grid-container">
             <div class="grid-stack"></div>
         </div>
-        <div id="dialog-form">
+        <div id="dialog-form" style="display:none">
             <ul>
                 <li>
                     <div>Title:</div>
@@ -76,6 +80,7 @@
     <script>
         var dashApp;
         $(function () {
+            $('#btn-div').hide();
             dashApp = new ActDash.DashboardApp();
             dashApp.initialize();
         });

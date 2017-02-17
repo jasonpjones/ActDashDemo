@@ -10,10 +10,6 @@
         it("should instantiate a dashboard object", function () {
             expect(dashApp.dashboard).toBeDefined();
         });
-
-        it("should instantiate a charts object", function () {
-            expect(dashApp.charts).toBeDefined();
-        });
     });
 
 });
