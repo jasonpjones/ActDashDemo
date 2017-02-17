@@ -73,66 +73,73 @@ describe('dash_utils', function () {
 
     });
 
-    describe('findNextXCoordinate', function () {
+    describe('findNextYCoordinate', function () {
 
         it('should return 0 if there are no elements in the array', function () {
             var arr = [],
-                result = dashUtils.findNextXCoordinate(arr);
+                result = dashUtils.findNextYCoordinate(arr);
             expect(result).toEqual(0);
         });
 
         it('should find the point below the lowest cell bottom', function () {
             var arr = [
-                { y: 0, height: 1 },
-                { y: 1, height: 2 },
-                { y: 3, height: 2 }
+                { y: 0, gsHeight: 1 },
+                { y: 1, gsHeight: 2 },
+                { y: 3, gsHeight: 2 }
             ],
-                result = dashUtils.findNextXCoordinate(arr);
+                result = dashUtils.findNextYCoordinate(arr);
             expect(result).toEqual(5);
 
         });
 
         it('should find the point below the lowest cell bottom when the cells are in no particular order', function () {
             var arr = [
-                { y: 2, height: 1 },
-                { y: 4, height: 2 },
-                { y: 0, height: 2 }
+                { y: 2, gsHeight: 1 },
+                { y: 4, gsHeight: 2 },
+                { y: 0, gsHeight: 2 }
             ],
-             result = dashUtils.findNextXCoordinate(arr);
+             result = dashUtils.findNextYCoordinate(arr);
             expect(result).toEqual(6);
         });
 
     });
 
-    describe('getIndices', function () {
+    describe('getIndicesAndSizes', function () {
 
-        it('should return an empty array if it is passed an empty array', function () {
+        it("should return an empty array if an empty array is passed in", function () {
             var arr = [],
-                result = dashUtils.getIndices(arr);
+                result = dashUtils.getIndicesAndSizes(arr);
             expect(result).toEqual([]);
         });
 
-
-        it('should return an array of all nbrIdx properties on the passed in array of objects', function () {
+        it("should return an array containing index and size info - basic", function () {
             var arr = [
-                { nbrIdx: 1 },
-                { nbrIdx: 2 },
-                { nbrIdx: 3 }
+                { nbrIdx: 1, pxHeight: 24, pxWidth: 30 },
+                { nbrIdx: 2, pxHeight: 41, pxWidth: 18 },
+                { nbrIdx: 3, pxHeight: 50, pxWidth: 60 }
             ],
-            result = dashUtils.getIndices(arr);
-            expect(result).toEqual([1,2,3]);
+            result = dashUtils.getIndicesAndSizes(arr);
+            expect(result).toEqual([
+                { nbrIdx: 1, size: { h: 24, w: 30 } },
+                { nbrIdx: 2, size: { h: 41, w: 18 } },
+                { nbrIdx: 3, size: { h: 50, w: 60 } }
+            ]);
         });
 
-        it('should return an array of all nbrIdx properties on the passed in array of objects sorted ascending', function () {
+        it("should return an array containing index and size info - sorting ascending", function () {
             var arr = [
-                { nbrIdx: 5 },
-                { nbrIdx: 3 },
-                { nbrIdx: 4 },
-                { nbrIdx: 1 },
-                { nbrIdx: 7 }
+                { nbrIdx: 4, pxHeight: 10, pxWidth: 20 },
+                { nbrIdx: 2, pxHeight: 25, pxWidth: 35 },
+                { nbrIdx: 5, pxHeight: 5, pxWidth: 15 },
+                { nbrIdx: 1, pxHeight: 30, pxWidth: 40 }
             ],
-            result = dashUtils.getIndices(arr);
-            expect(result).toEqual([1, 3, 4, 5, 7]);
+            result = dashUtils.getIndicesAndSizes(arr);
+            expect(result).toEqual([
+                { nbrIdx: 1, size: { h: 30, w: 40 } },
+                { nbrIdx: 2, size: { h: 25, w: 35 } },
+                { nbrIdx: 4, size: { h: 10, w: 20 } },
+                { nbrIdx: 5, size: { h: 5, w: 15 } }
+            ]);
         });
 
     });

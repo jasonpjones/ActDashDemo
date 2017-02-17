@@ -14,18 +14,6 @@
         it("should instantiate a charts object", function () {
             expect(dashApp.charts).toBeDefined();
         });
-
-        it("should instantiate a chart utils object", function () {
-            expect(dashApp.chartUtils).toBeDefined();
-        });
-
-        it("should instantiate a API data object", function () {
-            expect(dashApp.apiData).toBeDefined();
-        });
-
     });
-
-
-
 
 });
