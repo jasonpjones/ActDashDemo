@@ -76,7 +76,7 @@ ActDash.Chart = function (type, title, target, chartId, height, width) {
     this.layout = {
         title: title,
         height: height,
-        width: width
+        width: width    
     };
 };
 
@@ -84,7 +84,7 @@ ActDash.Chart.prototype = {
     draw: function (target) {
         Plotly.newPlot(this.target, this.data, this.layout);
         var divSel = "#" + this.target;
-        $(divSel)
+        $(divSel)           //sticking data elements on the div so we can serialize...
             .data('chartId', this.chartId)
             .data('title', this.layout.title)
             .data('chartType', this.type)

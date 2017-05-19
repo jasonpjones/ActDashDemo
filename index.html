@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>ACT Dashboard Prototype</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <!-- library css -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.2.6/gridstack.min.css" />
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
     
         <!-- library scripts -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -15,6 +16,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.2.6/gridstack.min.js"></script>
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+
 
         <!-- Local css -->
         <link rel="stylesheet" href="src/css/overrides.css" />
@@ -28,6 +32,7 @@
         <script src="src/js/services/chart_utils.js"></script>
         <script src="src/js/services/dash_utils.js"></script>
         <script src="src/js/services/api_data.js"></script>
+        <script src="src/js/test.js"></script>
 
     </head>
     <body>
@@ -40,9 +45,11 @@
             <button id="btn-add-chart" disabled="disabled">Add a Chart</button>
             <button id="btn-save" disabled="disabled">Save</button>
         </div>
+        
         <div class="grid-container">
             <div class="grid-stack"></div>
         </div>
+
         <div id="dialog-form" style="display:none">
             <ul>
                 <li>
@@ -76,13 +83,17 @@
 
             </ul>
         </div>
+        <script>
+            var dashApp;
+            $(function () {
+                $('#btn-div').hide();
+                dashApp = new ActDash.DashboardApp();
+                dashApp.initialize();
+
+                //console.log(isGuid("605ABE03-58E6-443F-9DD5-176529B80B04"));
+                //console.log(isGuid("60533E03-58E6-443F-9DD51-76529B80B04"));
+                mergeThem();
+            });
+        </script>
     </body>
-    <script>
-        var dashApp;
-        $(function () {
-            $('#btn-div').hide();
-            dashApp = new ActDash.DashboardApp();
-            dashApp.initialize();
-        });
-    </script>
 </html>
